@@ -1,6 +1,7 @@
 package lk.royalBank.controller;
 
 import lk.royalBank.dto.BankAccountDTO;
+import lk.royalBank.dto.BranchDTO;
 import lk.royalBank.service.BankAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +25,12 @@ public class BankAccountController {
         return bankAccountService.checkBalance(accountNumber);
     }
 
-    @GetMapping
-    public void test(){
-        throw new RuntimeException("Run Time");
+    @PutMapping(path = "/doTransaction")
+    public void doTransaction(@RequestParam("type") String type,@RequestParam("accno") String accno, @RequestParam("amount") Double amount){
+        bankAccountService.doTransAction(type,accno,amount);
+    }
+    @GetMapping(value = {"/{accNO}"})
+    public BankAccountDTO accountByID(@PathVariable("accNO") String accno){
+        return bankAccountService.findBYAccountNumber(accno);
     }
 }

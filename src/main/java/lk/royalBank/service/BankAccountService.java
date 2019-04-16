@@ -9,4 +9,6 @@ public interface BankAccountService {
     double checkBalance(String accountNumber);
 
     void addBankAccount(String accountNumber, BankAccountDTO bankAccountDTO);
+
+    void doTransAction(String transactionType,String accountNumber,Double amount);
 }

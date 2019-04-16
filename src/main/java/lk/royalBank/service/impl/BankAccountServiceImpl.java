@@ -68,4 +68,24 @@ public class BankAccountServiceImpl implements BankAccountService {
         bankAccountRepository.save(bankAccount);
     }
 
+
+    @Override
+    public void doTransAction(String transactionType, String accountNumber,Double amount) {
+        double balance = checkBalance(accountNumber);
+
+        if(transactionType.equals("deposit")){
+            BankAccount bankAccount = bankAccountRepository.findById(accountNumber).get();
+            double newamount = balance + amount;
+            bankAccount.setAmount(newamount);
+
+        }else if (transactionType.equals("withdraw")) {
+            BankAccount bankAccount = bankAccountRepository.findById(accountNumber).get();
+            double newamount = balance - amount;
+            bankAccount.setAmount(newamount);
+
+        }
+
+
+    }
+
 }
