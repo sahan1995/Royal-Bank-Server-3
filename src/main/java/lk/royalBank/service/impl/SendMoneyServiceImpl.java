@@ -41,17 +41,17 @@ public class SendMoneyServiceImpl implements SendMoneyService {
         BeanUtils.copyProperties(sendMoneyDTO.getBankAccountDTO(),bankAccount);
         sendMoney.setBankAccount(bankAccount);
         sendMoneyRepository.save(sendMoney);
-        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
-        Date date = new Date(System.currentTimeMillis());
-        String dateandtime = formatter.format(date);
+//        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+//        Date date = new Date(System.currentTimeMillis());
+//        String dateandtime = formatter.format(date);
         String name = sendMoneyDTO.getBankAccountDTO().getClientDTO().getFname()+" "+sendMoneyDTO.getBankAccountDTO().getClientDTO().getLname();
-        WidthdrawDTO withdrawDTO = new WidthdrawDTO(dateandtime, sendMoneyDTO.getAmount(), "Send Transaction Withdraw", name);
+        WidthdrawDTO withdrawDTO = new WidthdrawDTO(sendMoneyDTO.getDateAndTime(), sendMoneyDTO.getAmount(), "Send Transaction Withdraw", name);
         withdrawDTO.setBankAccountDTO(sendMoneyDTO.getBankAccountDTO());
         widthrawService.widthrawMoney(withdrawDTO);
 
 
         BankAccountDTO bankAccountDTO = bankAccountService.findBYAccountNumber(sendMoneyDTO.getDepositAccount());
-        DepositDTO depositDTO = new DepositDTO(dateandtime, sendMoneyDTO.getAmount(), name, "Send Transaction Deposit");
+        DepositDTO depositDTO = new DepositDTO(sendMoneyDTO.getDateAndTime(), sendMoneyDTO.getAmount(), name, "Send Transaction Deposit");
         depositDTO.setBankAccountDTO(bankAccountDTO);
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.postForEntity("http://192.168.1.101:8080/api/v1/deposits",depositDTO,null);
