@@ -27,4 +27,16 @@ public class UserController {
         System.out.println(loginDTO.getUserName());
         return userService.login(loginDTO);
     }
+
+    @GetMapping(value = "/{uname}")
+    public UserDTO findByID(@PathVariable("uname") String uname){
+        return  userService.findByID(uname);
+    }
+
+    @PutMapping(path = "/change")
+    public void changePassword(@RequestParam("uname") String uname, @RequestParam("pass") String password){
+        userService.changePassword(uname, password);
+    }
+
+
 }

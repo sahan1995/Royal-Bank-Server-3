@@ -19,14 +19,14 @@ public class ATMCardController {
     @PostMapping
     public void save(@RequestBody ATMcardDTO atMcardDTO){
 
-        System.out.println(atMcardDTO);
+//        System.out.println(atMcardDTO);
         atmService.addATM(atMcardDTO);
     }
 
 
     @GetMapping(value = "login/{pin}")
     public BankAccountDTO atmLogin(@PathVariable("pin") String pin){
-//        System.out.println(pin);
+        System.out.println(pin);
 //        return "hello";
         return atmService.loginATM(pin);
     }

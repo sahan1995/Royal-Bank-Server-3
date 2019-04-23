@@ -10,7 +10,7 @@ public interface UserService {
 
     LoginUserDTO login(LoginDTO loginDTO);
 
+    UserDTO findByID(String userID);
 
-
-
+    boolean changePassword(String uname,String password);
 }
