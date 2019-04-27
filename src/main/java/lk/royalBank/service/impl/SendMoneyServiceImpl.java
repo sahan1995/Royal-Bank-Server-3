@@ -54,7 +54,7 @@ public class SendMoneyServiceImpl implements SendMoneyService {
         DepositDTO depositDTO = new DepositDTO(sendMoneyDTO.getDateAndTime(), sendMoneyDTO.getAmount(), name, "Send Transaction Deposit");
         depositDTO.setBankAccountDTO(bankAccountDTO);
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.postForEntity("http://192.168.1.101:8080/api/v1/deposits",depositDTO,null);
+        restTemplate.postForEntity("http://192.168.1.101:8081/api/v1/deposits",depositDTO,null);
 
 
 

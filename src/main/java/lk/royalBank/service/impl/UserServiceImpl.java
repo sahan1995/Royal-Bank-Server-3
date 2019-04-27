@@ -47,14 +47,14 @@ public class UserServiceImpl implements UserService {
             if(user.getUserName().equals(loginDTO.getUserName()) && user.getPassword().equals(loginDTO.getPassword())){
                 if (user.getRole().equals("Client")) {
                     System.out.println(user.getID());
-                    ClientDTO cliientDTO = restTemplate.getForEntity("http://192.168.1.101:8080/api/v1/clients/" + user.getID(), ClientDTO.class).getBody();
+                    ClientDTO cliientDTO = restTemplate.getForEntity("http://192.168.1.101:8081/api/v1/clients/" + user.getID(), ClientDTO.class).getBody();
                     return new LoginUserDTO(cliientDTO.getClientID(),cliientDTO.getFname(),cliientDTO.getLname(),"Client");
                 }else{
 //                    calling server 2 service for get employee by ID
 
                     System.out.println(user.getID());
 
-                        ResponseEntity<EmployeeDTO> responseEntity = restTemplate.getForEntity("http://192.168.1.101:8080/api/v1/employees/"+user.getID(), EmployeeDTO.class);
+                        ResponseEntity<EmployeeDTO> responseEntity = restTemplate.getForEntity("http://192.168.1.101:8081/api/v1/employees/"+user.getID(), EmployeeDTO.class);
 
                         EmployeeDTO employeeDTO = responseEntity.getBody();
 
